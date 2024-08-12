@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="landing.html">Home</a></li>
+            <li><a href="safwan.html">Safwan Halabi</a></li>
+            <li><a href="sara.html">Sara Asaad</a></li>
+            <li><a href="ward.html">Ward Zidani</a></li>
+            <li><a href="project.html">Project Story</a></li>
+            <li><a href="introduction.html">Parts 1 & 2</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Introduction: Motivation and Analysis</h1>
+
+        <div class="content">
+            <h2>Motivation</h2>
+            <p><strong>First and foremost</strong>, we aim to present the most sought-after fields and technologies in the industry, based on newly opened job positions.</p>
+            <p><strong>Additionally</strong>, we strive to present job search statistics based on levels of experience and areas of specialization, tailored to the required experience levels.</p>
+            <p><strong>Finally</strong>, we intend to suggest missing fields for specific job positions, customized to the user's profile. This includes recommending courses or training programs.</p>
+        </div>
+
+        <div class="content">
+            <h2>Information Extraction Requirements</h2>
+            <p>We need to extract specific information from job listings to answer two key questions:</p>
+            <ul>
+                <li><strong>Number of Job Positions:</strong> We will extract the number of job positions open for a specific skill, library, or description (e.g., 'Software Development', 'Databases').</li>
+                <li><strong>Skills Needed:</strong> We will extract the skills required for a specific job position.</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Query Implementation for Extracting Job Positions</h2>
+            <p><strong>For the first requirement</strong>, we use a set of queries:</p>
+            <ul>
+                <li>We execute the following query for a specific search word (e.g., 'tensorflow'): 
+                    <code>f'https://www.linkedin.com/jobs/search/?currentJobId=3822734767&f_AL=true&geoId=101620260&keywords={search_word}&location=Israel&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true'</code>.</li>
+                <li>We then extract the title from the page using <code>soup.find('title')</code> as the number of jobs is typically found there.</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Query Implementation for Extracting Skills</h2>
+            <p><strong>For the second requirement</strong>, the following steps are used:</p>
+            <ul>
+                <li>Find all job listings using: <code>soup.find('ul', class_='jobs-search__results-list').find_all('li')</code>.</li>
+                <li>Extract the link to the job listing with: <code>li.find('a')['href']</code>.</li>
+                <li>Extract the requirements from the description section using: <code>soup_job_details.find('div', class_='description__text').find('section').find('div').find_all('ul')</code>.</li>
+                <li>Filter the relevant parts using keywords like "experience" or "years".</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Example and Results</h2>
+            <p>To illustrate the process, we executed the query for the term "tensorflow". This resulted in 47 job listings, with the 15 most common words being:</p>
+            <ul>
+                <li><strong>experience:</strong> 232 occurrences</li>
+                <li><strong>learning:</strong> 61 occurrences</li>
+                <li><strong>data:</strong> 60 occurrences</li>
+                <li><strong>years:</strong> 43 occurrences</li>
+                <li><strong>machine:</strong> 37 occurrences</li>
+                <li><strong>tensorflow:</strong> 32 occurrences</li>
+                <li><strong>pytorch:</strong> 31 occurrences</li>
+                <li><strong>frameworks:</strong> 29 occurrences</li>
+                <li><strong>models:</strong> 28 occurrences</li>
+                <li><strong>working:</strong> 26 occurrences</li>
+                <li><strong>cloud:</strong> 26 occurrences</li>
+                <li><strong>science:</strong> 25 occurrences</li>
+                <li><strong>deep:</strong> 23 occurrences</li>
+                <li><strong>3:</strong> 23 occurrences</li>
+                <li><strong>ml:</strong> 23 occurrences</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Inverted Index for Common Words</h2>
+            <p>Below is the inverted index for the 15 most common words across all pages:</p>
+            <ul>
+                <li><strong>experience:</strong> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]</li>
+                <li><strong>learning:</strong> [0, 1, 2, 3, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 21, 22, 24, 26, 27, 28, 31, 32, 33, 35, 38, 40, 41, 42, 43, 44]</li>
+                <li><strong>data:</strong> [1, 2, 4, 6, 8, 9, 10, 11, 13, 15, 18, 19, 20, 21, 22, 23, 25, 27, 28, 31, 33, 35, 36, 37, 40, 42, 43, 44, 45]</li>
+                <li><strong>years:</strong> [1, 2, 5, 7, 8, 9, 10, 12, 13, 14, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 42, 43, 44, 45, 46]</li>
+                <li><strong>machine:</strong> [1, 2, 7, 8, 10, 11, 13, 15, 21, 22, 27, 28, 31, 32, 35, 38, 40, 42, 43, 44]</li>
+                <li><strong>tensorflow:</strong> [0, 1, 2, 4, 6, 9, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 26, 27, 28, 31, 32, 33, 38, 40, 41, 42, 43, 45]</li>
+                <li><strong>pytorch:</strong> [0, 1, 2, 4, 6, 9, 11, 13, 14, 15, 16, 17, 18, 20, 22, 23, 24, 26, 27, 28, 31, 32, 33, 38, 40, 41, 42, 43, 45]</li>
+                <li><strong>frameworks:</strong> [0, 1, 2, 4, 6, 8, 11, 13, 14, 15, 16, 17, 22, 23, 24, 27, 28, 31, 33, 39, 40, 41, 42, 43, 46]</li>
+                <li><strong>models:</strong> [1, 2, 7, 11, 12, 15, 17, 21, 23, 25, 27, 28, 29, 34, 36, 39, 40, 42, 43]</li>
+                <li><strong>working:</strong> [1, 2, 4, 6, 7, 11, 15, 18, 20, 21, 22, 25, 31, 33, 38, 43]</li>
+                <li><strong>cloud:</strong> [2, 7, 8, 11, 15, 18, 20, 21, 24, 27, 28, 30, 32, 33, 36, 37, 38, 39, 43, 45]</li>
+                <li><strong>science:</strong> [1, 2, 5, 9, 11, 13, 15, 18, 20, 21, 27, 28, 31, 33, 37, 40]</li>
+                <li><strong>deep:</strong> [0, 2, 3, 9, 11, 14, 15, 16, 17, 21, 24, 26, 27, 28, 33, 38, 41]</li>
+                <li><strong>3:</strong> [1, 2, 9, 11, 13, 14, 15, 18, 19, 20, 23, 24, 26, 27, 28, 31, 32, 33, 36]</li>
+                <li><strong>ml:</strong> [4, 6, 7, 8, 9, 22, 23, 25, 26, 34, 36, 39, 42, 43, 45, 46]</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Inverted Index for First 20 Pages</h2>
+            <p>Below is the inverted index for the 15 most common words across the first 20 pages:</p>
+            <ul>
+                <li><strong>experience:</strong> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</li>
+                <li><strong>learning:</strong> [0, 1, 2, 3, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17]</li>
+                <li><strong>data:</strong> [1, 2, 4, 6, 8, 9, 10, 11, 13, 15, 18, 19]</li>
+                <li><strong>years:</strong> [1, 2, 5, 7, 8, 9, 10, 12, 13, 14, 18, 19]</li>
+                <li><strong>machine:</strong> [1, 2, 7, 8, 10, 11, 13, 15]</li>
+                <li><strong>tensorflow:</strong> [0, 1, 2, 4, 6, 9, 11, 13, 14, 15, 16, 17, 18]</li>
+                <li><strong>pytorch:</strong> [0, 1, 2, 4, 6, 9, 11, 13, 14, 15, 16, 17, 18]</li>
+                <li><strong>frameworks:</strong> [0, 1, 2, 4, 6, 8, 11, 13, 14, 15, 16, 17]</li>
+                <li><strong>models:</strong> [1, 2, 7, 11, 12, 15, 17]</li>
+                <li><strong>working:</strong> [1, 2, 4, 6, 7, 11, 15, 18]</li>
+                <li><strong>cloud:</strong> [2, 7, 8, 11, 15, 18]</li>
+                <li><strong>science:</strong> [1, 2, 5, 9, 11, 13, 15, 18]</li>
+                <li><strong>deep:</strong> [0, 2, 3, 9, 11, 14, 15, 16, 17]</li>
+                <li><strong>3:</strong> [1, 2, 9, 11, 13, 14, 15, 18, 19]</li>
+                <li><strong>ml:</strong> [4, 6, 7, 8, 9]</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <p>There are 4 CSV files in the homework assignment:</p>
+            <ul>
+                <li><strong>“job_requirements.csv”</strong> – which is the query result.</li>
+                <li><strong>“TermFrequecny.csv”</strong> – which has the term frequency calculation for each document and each term.</li>
+                <li><strong>“InverseDocumentFrequency.csv”</strong> – which has the IDF calculation for each term.</li>
+                <li><strong>“TF-IDF.csv”</strong> – which has the TF-IDF calculation for each term and each document.</li>
+            </ul>
+            <p>The code that generated the CSV files will also be provided with the crawler code.</p>
+        </div>
+
+        <div class="content">
+            <h2>Precision and Recall Analysis</h2>
+            <p>Out of the first 10 results only 9 are actually relevant – <u>all but document 4.</u></p>
+            <p><strong>User 1</strong> looked at the first 10 results and found that the following documents are relevant: [1, 2, 3, 5, 8, 9, 10] while the following are irrelevant: [4, 6, 7].</p>
+            <p><strong>User 2</strong> looked at the first 10 results and found that the following documents are relevant: [1, 2, 6, 7, 9, 10] while the following are irrelevant: [3, 4, 5, 8].</p>
+
+            <ul>
+                <li><strong>User 1:</strong> Precision = 0.7, Recall = 0.77</li>
+                <li><strong>User 2:</strong> Precision = 0.6, Recall = 0.66</li>
+            </ul>
+            <p>Below is the detailed feedback from users:</p>
+            <h3>User 1 Feedback</h3>
+            <ul>
+                <li>Relevant Documents: [1, 2, 3, 5, 8, 9, 10]</li>
+                <li>Irrelevant Documents: [4, 6, 7]</li>
+            </ul>
+            <h3>User 2 Feedback</h3>
+            <ul>
+                <li>Relevant Documents: [1, 2, 6, 7, 9, 10]</li>
+                <li>Irrelevant Documents: [3, 4, 5, 8]</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+
+</html>
