@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Story</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="safwan.html">Safwan Halabi</a></li>
+            <li><a href="sara.html">Sara Asaad</a></li>
+            <li><a href="ward.html">Ward Zidani</a></li>
+            <li><a href="project.html">Project Story</a></li>
+            <li><a href="introduction.html">Parts 1 & 2</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Project Story: Job Listings Analysis</h1>
+
+        <div class="content">
+            <h2>Introduction</h2>
+            <p>In this project, we aimed to analyze job listings for a specific search word to understand the
+                requirements
+                and technologies sought by employers. We used various libraries and technologies to achieve this goal,
+                and
+                we also explored the concept of PageRank to rank the pages we retrieved.</p>
+        </div>
+
+        <div class="content">
+            <h2>Technologies Used</h2>
+            <p>We leveraged several interesting technologies throughout the project:</p>
+            <ul>
+                <li><strong>Requests library:</strong> This library was used to send HTTP requests and retrieve HTML
+                    pages
+                    containing job listings.</li>
+                <li><strong>BeautifulSoup library:</strong> We utilized this library to parse and process the HTML pages
+                    returned by the requests.</li>
+                <li><strong>Pandas library:</strong> This library was essential for saving the extracted data into
+                    DataFrames, which were later exported to CSV files for further analysis.</li>
+                <li><strong>NLTK library:</strong> We used NLTK to process text, specifically to remove stop-words from
+                    the
+                    job requirements we extracted.</li>
+                <li><strong>RE library:</strong> This library helped us find specific patterns in the text, such as
+                    extracting relevant keywords.</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Runtime Analysis</h2>
+            <p>
+                We conducted two main queries:
+                <br><strong>For the first query</strong> - the runtime was approximately 1.5 minutes.
+                <br><strong>For the second query</strong> - the runtime for a single execution ranged from 1.5 to 2
+                minutes.
+                <br><br>The primary factor affecting the runtime was bypassing LinkedIn’s bot detection and the time
+                required to send various requests.
+                <br><br>The processing time was <strong>negligible</strong>, taking only a fraction of a second to
+                extract text, process
+                it,
+                save it in a DataFrame, and export it to a CSV file;
+                with a fast internet connection and proximity to LinkedIn’s servers, the runtime could potentially
+                be reduced to less than a minute.
+            </p>
+
+        </div>
+
+        <div class="content">
+            <h2>Page Structure and Links</h2>
+            <p>Our system returned two types of queries:</p>
+            <ul>
+                <li><strong>Query 1:</strong> The pages returned were mainly 48 independent pages. We sent 48 requests
+                    that
+                    weren’t connected, resulting in no hubs or authorities.</li>
+                <li><strong>Query 2:</strong> The pages returned included one hub page containing 60 links to the first
+                    60
+                    job listings. Each job listing was a stand-alone page, making these the authority pages, with 60 in
+                    total.</li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>PageRank Calculation with Random Walks</h2>
+            <p>Given our system's structure with one hub and several authorities (with no connections between
+                authorities),
+                we used a variation of the PageRank formula incorporating random walks. Each authority page had a 10%
+                chance
+                to link to a different page. Here are the results from three runs:</p>
+
+            <h3>Run 1:</h3>
+            <img src="Run1.png" alt="PageRank Run 1">
+
+            <h3>Run 2:</h3>
+            <img src="Run2.png" alt="PageRank Run 2">
+
+            <h3>Run 3:</h3>
+            <img src="Run3.png" alt="PageRank Run 3">
+
+            <p>We observed that the hub page consistently had the lowest PageRank, which is logical given that no pages
+                had
+                explicit links pointing to the hub page. Additionally, the order of the authority pages varied due to
+                the
+                randomness in the 10% chance of linking out to other nodes. The final ranking was calculated by
+                averaging
+                the rankings from all three runs:</p>
+            <img src="AverageRun.png" alt="Final PageRank">
+        </div>
+
+        <div class="content">
+            <h2>User Feedback and Query Optimization</h2>
+            <p>We asked three users to rank our PageRank results and provide feedback to perform query optimization.
+                Here
+                are their rankings and relevant keywords:</p>
+
+            <h2>Relevant Keywords</h2>
+            <p>Unique keywords (for each job listing):</p>
+            <table>
+                <tr>
+                    <th>Job Listing</th>
+                    <th>Unique Keywords</th>
+                </tr>
+                <tr>
+                    <td>P1</td>
+                    <td>Deep learning</td>
+                </tr>
+                <tr>
+                    <td>P2</td>
+                    <td>retention, predictive models, data visualization, Hadoop, Spark, SaaS, NLP, sci-kit learn</td>
+                </tr>
+                <tr>
+                    <td>P3</td>
+                    <td>Forecasting, SQL, gradient boosting, MLOPs, reinforcement, Apache Airflow</td>
+                </tr>
+                <tr>
+                    <td>P4</td>
+                    <td>Biomedical, deep learning</td>
+                </tr>
+                <tr>
+                    <td>P5</td>
+                    <td>Research, publishing, paper, feature engineering, media</td>
+                </tr>
+                <tr>
+                    <td>P6</td>
+                    <td>Formatting</td>
+                </tr>
+                <tr>
+                    <td>P7</td>
+                    <td>Research, publishing, paper, feature engineering, media</td>
+                </tr>
+                <tr>
+                    <td>P8</td>
+                    <td>ML, generative, AWS, GCP, RAG</td>
+                </tr>
+                <tr>
+                    <td>P9</td>
+                    <td>pipelines, distributed programming, AWS</td>
+                </tr>
+                <tr>
+                    <td>P10</td>
+                    <td>AWS, Big Data, CNN, RNN, LSTM, Transformer, sci-kit learn, Multimodal, transfer</td>
+                </tr>
+            </table>
+
+
+            <h3>User 1’s Ranking:</h3>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Page</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>P3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>P8</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>P9</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>P10</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>P2</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>P4</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>P6</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>P7</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>P5</td>
+                </tr>
+            </table>
+            <p><strong>Relevant keywords:</strong> Forecasting, SQL, gradient boosting, MLOPs, reinforcement, Apache
+                Airflow, ML,
+                generative,
+                AWS, GCP, RAG, pipelines, distributed programming, Big Data, CNN, RNN, LSTM, Transformer, sci-kit learn,
+                Multimodal, transfer, retention, predictive models, data visualization, Hadoop, Spark, SaaS, NLP.</p>
+            <p><strong>Non-Relevant keywords:</strong> Research, publishing, paper, feature engineering, media,
+                formatting, biomedical.
+            </p>
+
+            <h3>User 2’s Ranking:</h3>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Page</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>P6</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>P7</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>P5</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>P3</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>P10</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>P8</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>P9</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>P2</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>P4</td>
+                </tr>
+            </table>
+            <p><strong>Relevant keywords:</Strong> Formatting, research, publishing, paper, feature engineering, media,
+                <u>Deep learning</u>,
+                Forecasting, SQL, gradient boosting, <u>MLOPs</u>, reinforcement, Apache Airflow.</p>
+            <p><strong>Non-Relevant keywords:</Strong> <u>ML</u>, generative, AWS, GCP, RAG, pipelines, distributed
+                programming, AWS, Big Data,
+                CNN,
+                RNN, LSTM, Transformer, sci-kit learn, Multimodal, transfer, retention, predictive models, data
+                visualization, Hadoop, Spark, SaaS, NLP, Biomedical, <u>deep learning.</u></p>
+
+            <h3>User 3’s Ranking:</h3>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Page</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>P9</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>P4</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>P8</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>P5</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>P7</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>P3</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>P6</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>P10</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>P2</td>
+                </tr>
+            </table>
+            <p><strong>Relevant keywords:</strong> Deep learning, pipelines, distributed programming, <u>AWS</u>, Biomedical,
+                deep learning, <u>ML</u>,
+                generative, GCP, RAG, <u>Research, publishing, paper, feature engineering, media.</u></p>
+            <p><strong>Non-Relevant keywords:</strong> <u>Research, publishing, paper, feature engineering, media</u>,
+                Forecasting, SQL,
+                gradient
+                boosting, <u>MLOPs</u>, reinforcement, Apache Airflow, Formatting, <u>AWS</u>, Big Data, CNN, RNN, LSTM, Transformer,
+                sci-kit learn, Multimodal, transfer, retention, predictive models, data visualization, Hadoop, Spark,
+                SaaS,
+                NLP.</p>
+
+            <h3>Query Optimization</h3>
+            <p>Based on user feedback, we proposed the following keywords for query optimization:</p>
+            <p><strong>User 1:</strong> MLOPs, generative, Big Data, data visualization, SaaS, NLP.</p>
+            <p><strong>User 2:</strong> Research, feature engineering, SQL, Media, Forecasting.</p>
+            <p><strong>User 3:</strong> Biomedical, deep learning, pipelines.</p>
+        </div>
+    </div>
+</body>
+
+</html>
